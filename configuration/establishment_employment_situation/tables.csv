@@ -1,0 +1,8 @@
+datatype,https://download.bls.gov/pub/time.series/ce/ce.datatype
+footnote,https://download.bls.gov/pub/time.series/ce/ce.footnote
+industry,https://download.bls.gov/pub/time.series/ce/ce.industry
+period,https://download.bls.gov/pub/time.series/ce/ce.period
+seasonal,https://download.bls.gov/pub/time.series/ce/ce.seasonal
+series,https://download.bls.gov/pub/time.series/ce/ce.series
+supersector,https://download.bls.gov/pub/time.series/ce/ce.supersector
+data,https://download.bls.gov/pub/time.series/ce/ce.data.0.AllCESSeries
