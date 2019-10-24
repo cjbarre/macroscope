@@ -23,6 +23,8 @@ RUN git clone https://github.com/cjbarre/tsv2csv.git \
     && mv ./tsv2csv/tsv2csv /usr/local/bin \
     && rm -r tsv2csv
 
+RUN apt-get install -y postgresql-client
+
 RUN apt-get remove --purge -y curl make git && apt-get clean
 
 RUN useradd -ms /bin/bash macroscope_admin
