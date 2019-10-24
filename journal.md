@@ -34,3 +34,5 @@ The init script is used to string together the processing of the independent dat
 Once it's running, connect to the storage database using the information in the .env file for now and fire off a query:
 
 select * from establishment_employment_situation.series order by series_title;
+
+Added support for the household portion of the employment situation report and the JOLT survey.
