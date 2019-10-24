@@ -8,11 +8,11 @@ sleep 5
 
 echo "Ingesting Establishment Employment Situation"
 
-./bin/bls-loader.sh establishment_employment_situation
+./bin/bls-loader.sh ees
 
 echo "Ingesting Household Employment Situation"
 
-./bin/bls-loader.sh household_employment_situation
+./bin/bls-loader.sh hes
 
 echo "Ingesting Job Opening and Labor Turnover Survey (JOLTS)"
 

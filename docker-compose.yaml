@@ -18,3 +18,12 @@ services:
       DB_NAME: ${STORAGE_DB}
       DB_USER: ${STORAGE_USER}
       DB_PASS: ${STORAGE_PASSWORD}
+  postgrest:
+    image: postgrest/postgrest
+    ports:
+      - "3000:3000"
+    environment:
+      PGRST_DB_URI: postgres://${STORAGE_USER}:${STORAGE_PASSWORD}@${STORAGE_HOST}/${STORAGE_DB}
+      PGRST_DB_ANON_ROLE: macroscope_anon
+      PGRST_DB_SCHEMA: warehouse
+
