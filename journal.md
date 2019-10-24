@@ -36,3 +36,5 @@ Once it's running, connect to the storage database using the information in the 
 select * from establishment_employment_situation.series order by series_title;
 
 Added support for the household portion of the employment situation report and the JOLT survey.
+
+Added Postgrest to the environment. Data sources are now tables inside one schema called warehouse. Data sources are prefixes on table names.

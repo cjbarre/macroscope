@@ -2,11 +2,15 @@
 
 `docker-compose up -d`
 
-Connect to the storage database using the values in the .env file for now, query things in the following schemas.
+Connect to the storage database using the values in the .env file for now.
 
-- establishment_employment_situation
-- household_employment_situation
-- jolts
+Query things in the warehouse schema.
+
+Tables are prefixed by an abbreviation of the data source name.
+
+- ees = establishment employment situation
+- hes = household employment situation
+- jolts = job openings and labor turnover survey
 
 Known issues:
 
