@@ -5,6 +5,8 @@
 Connect to the storage database using the values in the .env file for now, query things in the following schemas.
 
 - establishment_employment_situation
+- household_employment_situation
+- jolts
 
 Known issues:
 
