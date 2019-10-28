@@ -27,13 +27,14 @@ services:
       PGRST_DB_URI: postgres://${STORAGE_USER}:${STORAGE_PASSWORD}@${STORAGE_HOST}/${STORAGE_DB}
       PGRST_DB_ANON_ROLE: macroscope_anon
       PGRST_DB_SCHEMA: warehouse
-      PGRST_SERVER_PROXY_URI: http://localhost/api
+      PGRST_SERVER_PROXY_URI: http://${INGRESS_HOST}/api
+      PGRST_MAX_ROWS: 1000
     depends_on: 
       - storage
   swagger-ui:
     image: swaggerapi/swagger-ui
     environment: 
-      URL: http://localhost/api
+      URL: http://${INGRESS_HOST}/api
   webserver:
     image: nginx:1.17
     volumes:
