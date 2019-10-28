@@ -29,11 +29,13 @@ RUN apt-get remove --purge -y curl make git && apt-get clean
 
 RUN useradd -ms /bin/bash macroscope_admin
 
-USER macroscope_admin
-
 WORKDIR /home/macropscope_admin
 
 COPY . macroscope
+
+RUN chmod +x macroscope/bin/* && chown -R macroscope_admin macroscope
+
+USER macroscope_admin
 
 ENTRYPOINT cd macroscope && ./bin/init.sh
 
