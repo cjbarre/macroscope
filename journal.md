@@ -1,3 +1,9 @@
+10-29-2019
+
+A reverse proxy webserver has been added to the ecosystem via nginx. Postgrest sits behind the webserver now. A barebones swagger ui has been added to the ecosystem behind the webserver as well. Postgrest is accessed at /api and swagger ui is at /api/doc. INGRESS_HOST has been added to the .env file. This is for production environments, so that the swagger ui docs will direct sample api requests to the correct location. An nginx configuration file has been added in the webserver directory. A private production installation has been published to macroscope.cameronbarre.com.
+
+
+
 10-23-2019
 
 The project is minimally functional. It's currently structured as a docker compose application with a postgres container for data storage and an init container. 
