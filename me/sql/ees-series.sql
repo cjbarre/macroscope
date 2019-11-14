@@ -1,0 +1,1 @@
+select * from warehouse.ees_series order by series_id;
