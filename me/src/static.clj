@@ -2,7 +2,8 @@
   (:require [next.jdbc :as jdbc]
             [clojure.core.reducers :as r]
             [clojure.data.json :as json]
-            [oz.core :as oz]))
+            [oz.core :as oz]
+            [me.page :as p]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Data Generation ;;;
@@ -29,30 +30,20 @@
 ;;; Page Generation ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn page [series-id series-title]
-  [:div
-   [:vega-lite {:height 400
-                :width 500
-                :title series-title
-                :data {:url (format "data/%s.json" series-id)}
-                :mark {:type "line"
-                       :interpolate "monotone"}
-                :encoding {:x {:field "period" :type "temporal" :timeUnit "utcyearmonth"}
-                           :y {:field "value" :type "quantitative"}}}]])
-
 (defn generate-static-ees-pages []
   (time (into [] 
               (r/fold conj 
-                      (r/map (fn [x] (spit (format "build/raw/charts/ees/%s-%s.clj"
-                                                   (clojure.string/lower-case 
-                                                    (clojure.string/replace (:ees_series/series_title x) #"\W+" "-"))
-                                                   (:ees_series/series_id x))
+                      (r/map (fn [x] (spit (format "build/raw/charts/ees/%s.clj"
+                                                   (-> (:ees_series/series_id x)
+                                                       (str "-" (:ees_series/series_title x))
+                                                       (clojure.string/replace #"\W+" "-")
+                                                       (clojure.string/lower-case)))
                                            (format "(ns raw.charts.ees.%s) \n\n %s"
                                                    (:ees_series/series_id x)
-                                                   (page (:ees_series/series_id x) (:ees_series/series_title x)))))
+                                                   (p/page (:ees_series/series_id x) (:ees_series/series_title x)))))
                              (jdbc/execute! ds [(slurp "sql/ees-series.sql")]))))))
 
-#_(generate-static-ees-pages)
+#_(generate-static-ees-pages) 
 
 ;;;;;;;;;;
 ;;; Oz ;;;
@@ -77,13 +68,34 @@
          :lazy? false
          :view? false))
 
+
 ;;;;;;;;;;;;
 ;;; Main ;;;
 ;;;;;;;;;;;;
 
 (defn generate-site []
-  (generate-static-ees-data)
+  #_(generate-static-ees-data)
   (generate-static-ees-pages)
   (generate-ees-static-site))
 
 #_(generate-site)
+   
+
+(comment
+
+  (oz/build!
+   [{:from "build/raw/"
+     :to "build/site/"
+     :template-fn site-template}])
+
+  (oz/start-server!)
+
+
+  (-> (map #(-> %
+                :ees_series/series_title
+                (clojure.string/replace #"\W+" "-")
+                (str "-" (:ees_series/series_id %))
+                (clojure.string/lower-case))
+           (jdbc/execute! ds [(slurp "sql/ees-series.sql")]))
+      (into #{})
+      count))
