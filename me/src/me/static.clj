@@ -111,9 +111,11 @@
 
 (defn site-template
   [content]
-  [:div
+  [:div.grid
+   [:link {:rel "stylesheet" :type "text/css" :href "/assets/app.css"}]
    vega-embed-js
-   [:h1 "Economics for Mortals"]
+   [:div.grid.header
+    [:span.brand "Economics for Mortals"]]
    content])
 
 (defn generate-ees-static-site []
