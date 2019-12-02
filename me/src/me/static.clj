@@ -37,6 +37,7 @@
       (clojure.string/lower-case)))
 
 (defn generate-static-ees-pages []
+  (.mkdirs (io/file "build/raw/charts/ees"))
   (time (into [] 
               (r/fold conj 
                       (r/map (fn [x] (spit (format "build/raw/charts/ees/%s.clj"
