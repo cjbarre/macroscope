@@ -18,6 +18,7 @@
 (def ds (jdbc/get-datasource db))
 
 (defn generate-static-ees-data []
+  (.mkdirs (io/file "build/site/charts/ees/data"))
   (time (into [] 
               (r/fold conj
                       (r/map (fn [x]
