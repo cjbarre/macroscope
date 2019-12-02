@@ -122,7 +122,10 @@
   (oz/build!
          [{:from "build/raw/"
            :to "build/site/"
-           :template-fn site-template}]
+           :template-fn #'site-template}
+          {:from "build/raw/assets/"
+           :to "build/site/assets/"
+           :as-assets? true}]
          :live? false
          :lazy? false
          :view? false))
