@@ -4,7 +4,8 @@
             [clojure.data.json :as json]
             [clojure.java.io :as io]
             [oz.core :as oz]
-            [me.page :as p]))
+            [me.page :as p]
+            [clojure.java.shell :as sh]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Data Generation ;;;
@@ -28,6 +29,69 @@
 
 #_(generate-static-ees-data)
 
+;;;;;;;;;;;;;;;;;;;;;;
+;;; SVG Generation ;;;
+;;;;;;;;;;;;;;;;;;;;;;
+
+(defn chart-template [values]
+  {:width 500
+   :height 200
+   :data {:values values}
+   :mark "area"
+   :encoding {:x {:field "period"
+                  :type "temporal"
+                  :timeUnit "utcyearmonth"
+                  :axis {:title nil
+                         :labelFontSize 15
+                         :labelAngle -45
+                         :format "%Y"
+                                 ;:labelOverlap "greedy"
+                         :labelPadding 10
+                                 ;:labelFlush false
+                         }}
+              :y {:field "value"
+                  :type "quantitative"
+                  :axis {:title nil
+                         :labelFontSize 15
+                         :labelPadding 10}}}})
+
+(defn scrub-dimensions [svg-str]
+  (clojure.string/replace-first svg-str #"width=\"[0-9]+\" height=\"[0-9]+\"" ""))
+
+(defn vega-lite->svg [series-id vega-lite]
+  (-> (sh/sh "/bin/sh"
+             "-c"
+             (format "echo '%s' | vl2vg | vg2svg | sed 's/width=\"[0-9]*\" height=\"[0-9]*\"//' > %s"
+                     (json/write-str vega-lite :key-fn name)
+                     (format "build/site/charts/ees/charts/%s.svg" series-id)))
+      :out))
+
+(defn generate-ees-svg-charts []
+  (.mkdirs (io/file "build/site/charts/ees/charts"))
+  (time (into []
+              (r/fold conj
+                      (r/map (fn [x]
+                               (spit 
+                                (format "build/site/charts/ees/charts/%s.json" (:ees_data/series_id x))
+                                (json/write-str (chart-template 
+                                                 (json/read-str (str (:data x)) :key-fn keyword))
+                                                :key-fn name)))
+                             (jdbc/execute! ds [(slurp "sql/ees-data.sql")]))))))
+
+#_(generate-ees-svg-charts)
+
+(comment
+  (vega-lite->svg (chart-template [{:period "2019-01" :value "100"}]))
+  
+  (sh/sh "/bin/sh"
+         "-c"
+         (format "echo '%s' | vl2vg | vg2svg"
+                 (json/write-str 
+                  (chart-template [{:period "2019-01" :value "100"}])
+                  :key-fn name)))
+  
+  )
+  
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Page Generation ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;
@@ -51,7 +115,7 @@
                                                    (p/page (:ees_series/series_id x) (:ees_series/series_title x)))))
                              (jdbc/execute! ds [(slurp "sql/ees-series.sql")]))))))
 
-#_(generate-static-ees-pages) 
+#_(generate-static-ees-pages)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Index Generation ;;;
@@ -111,11 +175,8 @@
 
 (defn site-template
   [content]
-  [:div.grid
+  [:div
    [:link {:rel "stylesheet" :type "text/css" :href "/assets/app.css"}]
-   vega-embed-js
-   [:div.grid.header
-    [:span.brand "Economics for Mortals"]]
    content])
 
 (defn generate-ees-static-site []
