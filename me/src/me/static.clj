@@ -131,7 +131,7 @@
          [{:from "build/raw/"
            :to "build/site/"
            :template-fn #'site-template}
-          {:from "build/raw/assets/"
+          {:from "assets/"
            :to "build/site/assets/"
            :as-assets? true}]
          :live? false
@@ -158,7 +158,7 @@
    [{:from "build/raw/"
      :to "build/site/"
      :template-fn #'site-template}
-    {:from "build/raw/assets/"
+    {:from "assets/"
      :to "build/site/assets/"
      :as-assets? true}])
   
