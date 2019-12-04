@@ -1,10 +1,10 @@
-(ns me.static
+(ns me.reference.generator
   (:require [next.jdbc :as jdbc]
             [clojure.core.reducers :as r]
             [clojure.data.json :as json]
             [clojure.java.io :as io]
             [oz.core :as oz]
-            [me.page :as p]
+            [me.reference.template :as p]
             [clojure.java.shell :as sh]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;

@@ -1,4 +1,4 @@
-(ns me.page)
+(ns me.reference.template)
 
 (defn main-chart [data series-title]
   {:data data
