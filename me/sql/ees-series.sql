@@ -1,1 +1,1 @@
-select * from warehouse.ees_series where series_id = 'CES0500000001' order by series_id limit 1;
+select * from warehouse.ees_series order by series_id;
