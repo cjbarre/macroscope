@@ -19,79 +19,25 @@
 (def ds (jdbc/get-datasource db))
 
 (defn generate-static-ees-data []
-  (.mkdirs (io/file "build/site/charts/ees/data"))
+  (.mkdirs (io/file "build/site/charts/ees/data/"))
   (time (into [] 
               (r/fold conj
                       (r/map (fn [x]
                                (spit (format "build/site/charts/ees/data/%s.json" (:ees_data/series_id x))
                                      (-> x :data str)))
-                             (jdbc/execute! ds [(slurp "sql/ees-data.sql")]))))))
-
-#_(generate-static-ees-data)
-
-;;;;;;;;;;;;;;;;;;;;;;
-;;; SVG Generation ;;;
-;;;;;;;;;;;;;;;;;;;;;;
-
-(defn chart-template [values]
-  {:width 500
-   :height 200
-   :data {:values values}
-   :mark "area"
-   :encoding {:x {:field "period"
-                  :type "temporal"
-                  :timeUnit "utcyearmonth"
-                  :axis {:title nil
-                         :labelFontSize 15
-                         :labelAngle -45
-                         :format "%Y"
-                                 ;:labelOverlap "greedy"
-                         :labelPadding 10
-                                 ;:labelFlush false
-                         }}
-              :y {:field "value"
-                  :type "quantitative"
-                  :axis {:title nil
-                         :labelFontSize 15
-                         :labelPadding 10}}}})
-
-(defn scrub-dimensions [svg-str]
-  (clojure.string/replace-first svg-str #"width=\"[0-9]+\" height=\"[0-9]+\"" ""))
-
-(defn vega-lite->svg [series-id vega-lite]
-  (-> (sh/sh "/bin/sh"
-             "-c"
-             (format "echo '%s' | vl2vg | vg2svg | sed 's/width=\"[0-9]*\" height=\"[0-9]*\"//' > %s"
-                     (json/write-str vega-lite :key-fn name)
-                     (format "build/site/charts/ees/charts/%s.svg" series-id)))
-      :out))
-
-(defn generate-ees-svg-charts []
-  (.mkdirs (io/file "build/site/charts/ees/charts"))
+                             (jdbc/execute! ds [(slurp "sql/ees-data.sql")])))))
   (time (into []
               (r/fold conj
                       (r/map (fn [x]
-                               (spit 
-                                (format "build/site/charts/ees/charts/%s.json" (:ees_data/series_id x))
-                                (json/write-str (chart-template 
-                                                 (json/read-str (str (:data x)) :key-fn keyword))
-                                                :key-fn name)))
-                             (jdbc/execute! ds [(slurp "sql/ees-data.sql")]))))))
+                               (spit (format "build/site/charts/ees/data/%s-roc12.json" (:ees_data/series_id x))
+                                     (-> x :data str)))
+                             (jdbc/execute! ds [(slurp "sql/ees-roc12-data.sql")]))))))
 
-#_(generate-ees-svg-charts)
+#_(generate-static-ees-data)
 
-(comment
-  (vega-lite->svg (chart-template [{:period "2019-01" :value "100"}]))
-  
-  (sh/sh "/bin/sh"
-         "-c"
-         (format "echo '%s' | vl2vg | vg2svg"
-                 (json/write-str 
-                  (chart-template [{:period "2019-01" :value "100"}])
-                  :key-fn name)))
-  
-  )
-  
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Page Generation ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;
@@ -176,6 +122,7 @@
 (defn site-template
   [content]
   [:div
+   vega-embed-js
    [:link {:rel "stylesheet" :type "text/css" :href "/assets/app.css"}]
    content])
 
