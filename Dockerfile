@@ -1,7 +1,7 @@
 FROM ubuntu
 
 RUN apt-get update \
-    && apt-get install -y wget curl make git openjdk-8-jre
+    && apt-get install -y --fix-missing wget curl make git openjdk-8-jre
 
 RUN wget https://download.clojure.org/install/linux-install-1.10.1.469.sh \
     && chmod +x linux-install-1.10.1.469.sh \
