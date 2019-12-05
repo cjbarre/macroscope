@@ -45,7 +45,7 @@ services:
     image: nginx:1.17
     volumes:
       - "./me/build/site/:/usr/share/nginx/html"
-      - "./me/nginx.conf:/etc/nginx/nginx.conf:ro"
+      - "./me/nginx.conf:/etc/nginx/nginx.conf"
     ports:
       - "80:80"
 
