@@ -69,3 +69,71 @@ body {
     margin-top: 0;
     margin-bottom: 20px;
 }
+
+/* Industry Index */
+
+.index-a {
+    text-decoration: none;
+    color: black;
+}
+
+.index-text-hover:hover {
+    color: white;
+}
+
+.index-a2z-container {
+    display: grid;
+    line-height: 100px;
+    background-color: #F8F8F8;
+    padding: 25px;
+    font-size: 35px;
+    margin-top: 50px;
+}
+
+.index-a2z-container > ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(50px, 100px));
+}
+
+.index-a2z-container > ul > li {
+    display: inline;
+    text-align: center;
+}
+
+.index-a2z-container > ul > li:hover {
+    background-color: #A9A9A9;
+}
+
+.index-a2z-contents {
+    display: grid;
+    background-color: #F5F5F5;
+    margin-top: 50px;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    padding: 5vw;
+}
+
+.index-a2z-contents > div {
+    display:grid;
+    grid-template-columns: minmax(50px, 200px) minmax(200px, 1fr);
+}
+
+.index-a2z-contents > div > ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.index-a2z-contents > div > ul > li {
+    margin-left: auto;
+    margin-right: auto;
+    border-left: 4px #BEBEBE solid;
+    padding-left: 16px;
+    margin-bottom: 2vh;
+}
+
+.index-a2z-contents > div > ul > li:hover {
+    background-color: #A9A9A9;    
+    border-left: 8px black solid;
+}
