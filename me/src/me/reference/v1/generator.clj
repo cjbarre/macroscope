@@ -5,6 +5,8 @@
             [clojure.java.io :as io]
             [oz.core :as oz]
             [me.reference.v1.template :as p]
+            [me.reference.v1.index :as i]
+            [me.reference.v1.glue :as glue]
             [clojure.java.shell :as sh]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;
@@ -42,11 +44,6 @@
 ;;; Page Generation ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn slug [s]
-  (-> s
-      (clojure.string/replace #"\W+" "-")
-      (clojure.string/lower-case)))
-
 (defn generate-static-ees-pages []
   (.mkdirs (io/file "build/raw/reference/v1/bls/ces/"))
   (time (into [] 
@@ -67,49 +64,18 @@
 ;;; Index Generation ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn ees-alphabet-index [index]
-  [:div
-   [:h2 "Establishment Employment Situation"]
-   [:h3 "Explore by industry"]
-   (vec (concat [:ul {:style "padding:0;margin-top:2em"}]
-                (mapv #(vector :li 
-                               {:style "display:inline;margin-left:1em;font-size:1.5em;"} 
-                               [:a 
-                                {:href (format "#%s" (:letter %))} 
-                                (:letter %)]) 
-                      index)))
-   (vec (concat [:div]
-                (mapv #(vector :div
-                               [:h3 [:a {:name (:letter %)} (:letter %)]]
-                               (vec (concat [:ul {:style "list-style:none;padding-left:0;"}] 
-                                            (mapv (fn [x] [:li {:style "font-size:1.2em;"} 
-                                                           [:a {:href (format "index/%s-index.html" (slug (:industry_name x)))}
-                                                            (:industry_name x)]])
-                                                  (:industries %)))))
-                      index)))])
-
-(defn ees-industry-index [industry-index]
-  [:div
-   [:h2 (:industry_name industry-index)]
-   [:h3 "Explore industry-specific data series"]
-   (vec (concat [:ul {:style "list-style:none;padding-left:0;"}]
-                (mapv #(vector :li [:a {:href (format "../%s.html" 
-                                                      (slug (str (:series_id %) "-" (:series_title %))))}
-                                    (:series_title %)])
-                      (:series industry-index))))])
-
 (defn generate-ees-indicies []
   (.mkdirs (io/file "build/raw/reference/v1/bls/ces/index"))
   (let [index (map #(update % :industries (fn [x] (json/read-str (str x) :key-fn keyword)))
                    (jdbc/execute! ds [(slurp "sql/ees-industries-index.sql")]))]
     (spit "build/raw/reference/v1/bls/ces/index.clj"
           (format "(ns raw.reference.v1.bls.ces.index) \n \n %s"
-                  (ees-alphabet-index index)))
-    (mapv #(spit (format "build/raw/reference/v1/bls/ces/index/%s-index.clj"
-                         (slug (:industry_name %)))
+                  (i/ees-alphabet-index index)))
+    #_(mapv #(spit (format "build/raw/reference/v1/bls/ces/index/%s-index.clj"
+                         (glue/slug (:industry_name %)))
                  (format "(ns raw.reference.v1.bls.ces.index.%s) \n \n %s"
-                         (slug (:industry_name %))
-                         (ees-industry-index %)))
+                         (glue/slug (:industry_name %))
+                         (i/ees-industry-index %)))
           (mapcat :industries index))))
 
 ;;;;;;;;;;
@@ -121,9 +87,11 @@
 
 (defn site-template
   [content]
-  [:div
+  [:div#main-container
    vega-embed-js
    [:link {:rel "stylesheet" :type "text/css" :href "/assets/app.css"}]
+   [:div#header-container
+    [:div#site-title "Mortal Economics"]]
    content])
 
 (defn generate-ees-static-site []
@@ -144,7 +112,7 @@
 ;;;;;;;;;;;;
 
 (defn generate-site []
-  #_(generate-static-ees-data)
+  (generate-static-ees-data)
   (generate-static-ees-pages)
   (generate-ees-indicies)
   (generate-ees-static-site))
@@ -161,6 +129,7 @@
     {:from "assets/"
      :to "build/site/assets/"
      :as-assets? true}])
+  
   
   
 
