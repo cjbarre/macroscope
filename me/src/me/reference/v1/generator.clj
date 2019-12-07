@@ -71,7 +71,7 @@
     (spit "build/raw/reference/v1/bls/ces/index.clj"
           (format "(ns raw.reference.v1.bls.ces.index) \n \n %s"
                   (i/ees-alphabet-index index)))
-    #_(mapv #(spit (format "build/raw/reference/v1/bls/ces/index/%s-index.clj"
+    (mapv #(spit (format "build/raw/reference/v1/bls/ces/index/%s-index.clj"
                          (glue/slug (:industry_name %)))
                  (format "(ns raw.reference.v1.bls.ces.index.%s) \n \n %s"
                          (glue/slug (:industry_name %))

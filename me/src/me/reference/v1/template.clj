@@ -46,25 +46,21 @@
 (defn page [series-id series-title]
   (let [main-data {:url (format "data/%s.json" series-id)}
         roc-12-mo-data {:url (format "data/%s-roc12.json" series-id)}]
-    [:div#main-container
-     [:div#header-container
-      [:div#site-title "Mortal Economics"]
-      [:div#series-title series-title]
-      [:div#series-source "Source: Bureau of Labor Statistics"]
-      [:div#series-id (format "Series ID: %s" series-id)]]
-     [:div#body-container
-      [:div.section
-       [:div.section-header
-        [:div.section-title "Official Data"]]
-       [:div.section-body
-        [:div main-series-text]
-        [:vega-lite (main-chart main-data series-title)]]]
+    [:div#body-container
+     [:div#series-title series-title]
+     [:div#series-source "Source: Bureau of Labor Statistics"]
+     [:div#series-id (format "Series ID: %s" series-id)]
+     [:div.section
+      [:div.section-header
+       [:div.section-title "Official Data"]]
+      [:div.section-body
+       [:div main-series-text]
+       [:vega-lite (main-chart main-data series-title)]]]
 
-      [:div.section
-       [:div.section-header
-        [:div.section-title "Rate of Change (ROC12)"]]
-       [:div.section-body
-        [:vega-lite (rate-of-change-12-mo roc-12-mo-data)]
-        rate-of-change-12-text]]]
-     [:div#footer-container]]))
+     [:div.section
+      [:div.section-header
+       [:div.section-title "Rate of Change (ROC12)"]]
+      [:div.section-body
+       [:vega-lite (rate-of-change-12-mo roc-12-mo-data)]
+       rate-of-change-12-text]]]))
 
