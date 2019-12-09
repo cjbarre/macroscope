@@ -142,3 +142,44 @@ body {
 .index-cta {
     text-align: center;
 }
+
+/* Landing Page Index */
+
+.landing-page-article {
+    padding-left: 15.5vw;
+    padding-right: 15.5vw;
+}
+
+.landing-page-article-title {
+    font-size: 40px;
+}
+
+.landing-page-article-author {
+    font-size: 20px;
+}
+
+.landing-page-article-author-img {
+    width: 64px;
+    height: 64px;
+}
+
+.landing-page-article-content {
+    font-size: 21px;
+    line-height: 30.54px;
+}
+
+.landing-page-article-meta {
+    margin-top: 2vh;
+    margin-bottom: 4vh;
+    display: grid;
+    grid-template-columns: 64px 150px;
+    column-gap: 15px;
+}
+
+.landing-page-article-greeting {
+    font-size: 30px;
+}
+
+.landing-page-product-1 {
+    font-size: 30px;
+}
