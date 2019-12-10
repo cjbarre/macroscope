@@ -16,5 +16,5 @@
     [:div.site-title [:a {:href "#"} "Terms"]]
     [:div.site-title "|"]
     [:div.site-title
-     [:a {:href "/reference/v1" :target "_blank"} "Open The Reference"]]]
+     [:a {:href "/reference/v1/bls/ces/" :target "_blank"} "Open The Reference"]]]
    content])
