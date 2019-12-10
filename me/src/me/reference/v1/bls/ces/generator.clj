@@ -1,9 +1,8 @@
-(ns me.reference.v1.generator
+(ns me.reference.v1.bls.ces.generator
   (:require [next.jdbc :as jdbc]
             [clojure.core.reducers :as r]
             [clojure.data.json :as json]
             [clojure.java.io :as io]
-            [oz.core :as oz]
             [me.reference.v1.bls.ces.template :as p]
             [me.reference.v1.bls.ces.index :as i]
             [me.reference.v1.bls.glue :as glue]
@@ -82,31 +81,6 @@
 ;;; Oz ;;;
 ;;;;;;;;;;
 
-(def vega-embed-js
-  [:script {:src "https://cdn.jsdelivr.net/npm/vega-embed@5.0.0"}])
-
-(defn site-template
-  [content]
-  [:div#main-container
-   vega-embed-js
-   [:link {:rel "stylesheet" :type "text/css" :href "/assets/app.css"}]
-   [:div#header-container
-    [:div#site-title "Mortal Economics"]]
-   content])
-
-(defn generate-ees-static-site []
-  (oz/build!
-         [{:from "build/raw/"
-           :to "build/site/"
-           :template-fn #'site-template}
-          {:from "assets/"
-           :to "build/site/assets/"
-           :as-assets? true}]
-         :live? false
-         :lazy? false
-         :view? false))
-
-
 ;;;;;;;;;;;;
 ;;; Main ;;;
 ;;;;;;;;;;;;
@@ -114,33 +88,6 @@
 (defn generate-site []
   (generate-static-ees-data)
   (generate-static-ees-pages)
-  (generate-ees-indicies)
-  (generate-ees-static-site))
+  (generate-ees-indicies))
 
 #_(generate-site)
-   
-
-(comment
-
-  (oz/build!
-   [{:from "build/raw/"
-     :to "build/site/"
-     :template-fn #'site-template}
-    {:from "assets/"
-     :to "build/site/assets/"
-     :as-assets? true}])
-  
-  
-  
-
-  (oz/start-server!)
-
-
-  (-> (map #(-> %
-                :ees_series/series_title
-                (clojure.string/replace #"\W+" "-")
-                (str "-" (:ees_series/series_id %))
-                (clojure.string/lower-case))
-           (jdbc/execute! ds [(slurp "sql/ees-series.sql")]))
-      (into #{})
-      count))

@@ -3,11 +3,22 @@
     src: url(/assets/TheanoDidot-Regular.ttf)
 }
 
+#header-container {
+    display:grid;
+    grid-template-columns: 200px 20px min-content 20px min-content 20px max-content;
+    
+    grid-template-rows: 8vh;
+}
+
 body {
     font-family: site-font;
     margin-top: 0;
     margin-bottom: 0;
     padding: 0;
+    background-color: #F8F6F6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 #body-container {
@@ -15,16 +26,26 @@ body {
     margin-left: 15%;
     margin-right: 15%;
     line-height: 37.5px;
+    padding-top: 5vh;
 }
 
 /* site */
 
-#site-title {
+.site-title {
     font-size: 23px;
     font-weight: bold;
     margin-bottom: 50px;
     padding-top: 15px;
     padding-left: 15px;
+}
+
+.site-title > a {
+    text-decoration: none;
+    color: black;
+}
+
+.site-title > a:hover {
+    color: gray;
 }
 
 /* series */
@@ -84,7 +105,7 @@ body {
 .index-a2z-container {
     display: grid;
     line-height: 100px;
-    background-color: #F8F8F8;
+    background-color: #F0F0F0;
     padding: 25px;
     font-size: 35px;
     margin-top: 50px;
@@ -108,7 +129,7 @@ body {
 
 .index-a2z-contents {
     display: grid;
-    background-color: #F5F5F5;
+    background-color: #F0F0F0;
     margin-top: 50px;
     margin-left: 10vw;
     margin-right: 10vw;
