@@ -4,9 +4,9 @@
             [clojure.data.json :as json]
             [clojure.java.io :as io]
             [oz.core :as oz]
-            [me.reference.v1.template :as p]
-            [me.reference.v1.index :as i]
-            [me.reference.v1.glue :as glue]
+            [me.reference.v1.bls.ces.template :as p]
+            [me.reference.v1.bls.ces.index :as i]
+            [me.reference.v1.bls.glue :as glue]
             [clojure.java.shell :as sh]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;

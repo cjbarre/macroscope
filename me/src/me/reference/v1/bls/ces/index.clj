@@ -1,5 +1,5 @@
-(ns me.reference.v1.index
-  (:require [me.reference.v1.glue :as glue]))
+(ns me.reference.v1.bls.ces.index
+  (:require [me.reference.v1.bls.glue :as glue]))
 
 (defn ees-alphabet-index [index]
   [:div#body-container
