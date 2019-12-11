@@ -13,7 +13,7 @@ select ai.letter,
                                   'series', (select json_agg(json_build_object('series_id', s.series_id,
                                                                                'series_title', s.series_title,
                                                                                'data_type', dt.data_type_text)
-                                                             order by dt.data_type_code, series_title)
+                                                             order by series_title)
                                              from warehouse.ees_series s
                                                       join warehouse.ees_datatype dt
                                                            on dt.data_type_code = s.data_type_code

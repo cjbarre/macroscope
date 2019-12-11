@@ -25,24 +25,18 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 (defn ees-industry-index [industry-index]
-  [:div
-   [:h2 (:industry_name industry-index)]
-   [:h3 "Explore industry-specific data series"]
-   (vec (concat [:ul {:style "list-style:none;padding-left:0;"}]
-                (mapv #(vector :li [:a {:href (format "../%s.html"
-                                                      (glue/slug (str (:series_id %) "-" (:series_title %))))}
-                                    (:series_title %)])
-                      (:series industry-index))))])
+  [:div#body-container
+   [:div#series-title (:industry_name industry-index) ]
+   [:div#series-source "Bureau of Labor Statistics" ]
+   [:div.index-cta "Establishment Survey"]
+   [:div.landing-page-article {:style "background-color: #F0F0F0;padding-top:15px;margin-top:50px;"}
+    (vec (concat [:ul {:style "list-style:none;"}]
+                 (mapv #(vector :li {:style "border-left: 2px gray solid;margin-bottom:25px;padding-left: 15px;"}
+                                [:a {:style "color:black;"
+                                     :href (format "../%s.html"
+                                                   (glue/slug (str (:series_id %) "-" (:series_title %))))}
+                                 (clojure.string/replace (:series_title %) 
+                                                         (re-pattern (clojure.string/lower-case 
+                                                                      (str (:industry_name industry-index) ","))) " ")])
+                       (:series industry-index))))]])
