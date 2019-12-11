@@ -24,8 +24,24 @@ There are too many data sources to name, too many reports to read, too many sche
 ---
 body-p-3
 |||
-I'm excited to share with you a <i>free</i> M.E. product:
+I'm excited to share with you a <i>free</i> product:
 ---
 product-1
 |||
-The Mortal Economics Reference
+The Mortal Economics Reference (opens in new tab)
+---
+product-1-desc
+|||
+The Reference provides a simple overview of every data series Mortal Economics consumes. It is organized by data source, such as <i>The Bureau of Labor Statistics (BLS)</i>, then further organized by release, such as <i>The Establishment Survey</i> portion of the monthly <i>Employment Situation Report</i> from the BLS.
+---
+product-1-desc-2
+|||
+The reference is always up to date, because the latest data is incorporated on the official release cycle for each data series.
+---
+outro
+|||
+I hope you enjoy using the reference as much as I have enjoyed creating it. I find it to be a valuable resource for exploring economic trends and checking up on common macro-economic indicators. I'm certain you will as well. Please email me directly at cameron@mortaleconomics.com if you would like to provide feedback or need support.
+---
+about-header
+|||
+About Mortal Economics
