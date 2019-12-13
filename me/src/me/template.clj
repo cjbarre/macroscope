@@ -10,7 +10,7 @@
    [:link {:rel "stylesheet" :type "text/css" :href "/assets/app.css"}]
    [:ul#header-container
     [:li.site-title "Mortal Economics"]
-    [:li.site-title [:a {:href "#"} "ToS"]]
+    [:li.site-title [:a {:href "/tos.html"} "ToS"]]
     [:li.site-title [:a {:href "#"} "FAQ"]]
     [:li.site-title [:a {:href "#"} "Blog"]]
     [:li.site-title
