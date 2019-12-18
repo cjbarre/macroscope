@@ -1,4 +1,4 @@
-(ns me.reference.v1.bls.glue)
+(ns me.site.reference.v1.bls.glue)
 
 (defn slug [s]
   (-> s

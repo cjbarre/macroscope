@@ -1,4 +1,4 @@
-(ns me.reference.v1.bls.ces.template)
+(ns me.site.reference.v1.bls.ces.template)
 
 (defn main-chart [data series-title]
   {:data data

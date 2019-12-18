@@ -1,6 +1,6 @@
 (ns me.build
   (:require [oz.core :as oz]
-            [me.template :as t]))
+            [me.site.template :as t]))
 
 (defn start-dynamic-build! []
   (oz/build!

@@ -1,4 +1,4 @@
-(ns me.index
+(ns me.site.index
   (:require [me.meca :as meca]))
 
 (def page 

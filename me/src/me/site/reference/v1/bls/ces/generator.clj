@@ -1,11 +1,11 @@
-(ns me.reference.v1.bls.ces.generator
+(ns me.site.reference.v1.bls.ces.generator
   (:require [next.jdbc :as jdbc]
             [clojure.core.reducers :as r]
             [clojure.data.json :as json]
             [clojure.java.io :as io]
-            [me.reference.v1.bls.ces.template :as p]
-            [me.reference.v1.bls.ces.index :as i]
-            [me.reference.v1.bls.glue :as glue]
+            [me.site.reference.v1.bls.ces.template :as p]
+            [me.site.reference.v1.bls.ces.index :as i]
+            [me.site.reference.v1.bls.glue :as glue]
             [clojure.java.shell :as sh]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;

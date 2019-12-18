@@ -1,4 +1,4 @@
-(ns me.template)
+(ns me.site.template)
 
 (def vega-embed-js
   [:script {:src "https://cdn.jsdelivr.net/npm/vega-embed@5.0.0"}])
