@@ -54,7 +54,7 @@
                                                        (clojure.string/lower-case)))
                                            (format "(ns raw.reference.v1.bls.ces.%s) \n\n %s"
                                                    (:ees_series/series_id x)
-                                                   (p/page (:ees_series/series_id x) (:ees_series/series_title x)))))
+                                                   (p/page (:ees_series/series_id x) (:ees_series/series_title x) (:ees_industry/naics_code x)))))
                              (jdbc/execute! ds [(slurp "sql/ees-series.sql")]))))))
 
 #_(generate-static-ees-pages)

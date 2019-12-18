@@ -43,20 +43,20 @@
                   If it's moving away from zero, in either direction, it's speeding up."]
    [:p.section-p "Positive means growing, negative means shrinking."]])
 
-(defn page [series-id series-title]
+(defn page [series-id series-title naics-code]
   (let [main-data {:url (format "data/%s.json" series-id)}
         roc-12-mo-data {:url (format "data/%s-roc12.json" series-id)}]
     [:div#body-container
      [:div#series-title series-title]
      [:div#series-source "Source: Bureau of Labor Statistics"]
      [:div#series-id (format "Series ID: %s" series-id)]
+     [:a {:href (format "/reference/v1/census/naics-2017/%s.html" naics-code)} "Learn more about this industry (NAICS)"]
      [:div.section
       [:div.section-header
        [:div.section-title "Official Data"]]
       [:div.section-body
        [:div main-series-text]
        [:vega-lite (main-chart main-data series-title)]]]
-
      [:div.section
       [:div.section-header
        [:div.section-title "Rate of Change (ROC12)"]]
