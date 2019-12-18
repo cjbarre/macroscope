@@ -25,3 +25,9 @@ echo "Ingesting Job Opening and Labor Turnover Survey (JOLTS)"
 ./bin/bls-loader.sh jolts
 
 psql -h $DB_HOST -U $DB_USER -d $DB_NAME -f storage/grant-select.sql
+
+echo "Ingesting NAICS"
+
+./bin/naics-loader.sh naics_2017
+
+psql -h $DB_HOST -U $DB_USER -d $DB_NAME -f storage/grant-select.sql
