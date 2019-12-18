@@ -26,13 +26,13 @@
                       (r/map (fn [x]
                                (spit (format "build/site/reference/v1/bls/ces/data/%s.json" (:ees_data/series_id x))
                                      (-> x :data str)))
-                             (jdbc/execute! ds [(slurp "sql/ees-data.sql")])))))
+                             (jdbc/execute! ds [(slurp "sql/reference/v1/bls/ces/ees-data.sql")])))))
   (time (into []
               (r/fold conj
                       (r/map (fn [x]
                                (spit (format "build/site/reference/v1/bls/ces/data/%s-roc12.json" (:ees_data/series_id x))
                                      (-> x :data str)))
-                             (jdbc/execute! ds [(slurp "sql/ees-roc12-data.sql")]))))))
+                             (jdbc/execute! ds [(slurp "sql/reference/v1/bls/ces/ees-roc12-data.sql")]))))))
 
 #_(generate-static-ees-data)
 
@@ -55,7 +55,7 @@
                                            (format "(ns raw.reference.v1.bls.ces.%s) \n\n %s"
                                                    (:ees_series/series_id x)
                                                    (p/page (:ees_series/series_id x) (:ees_series/series_title x) (:ees_industry/naics_code x)))))
-                             (jdbc/execute! ds [(slurp "sql/ees-series.sql")]))))))
+                             (jdbc/execute! ds [(slurp "sql/reference/v1/bls/ces/ees-series.sql")]))))))
 
 #_(generate-static-ees-pages)
 
@@ -66,7 +66,7 @@
 (defn generate-ees-indicies []
   (.mkdirs (io/file "build/raw/reference/v1/bls/ces/index"))
   (let [index (map #(update % :industries (fn [x] (json/read-str (str x) :key-fn keyword)))
-                   (jdbc/execute! ds [(slurp "sql/ees-industries-index.sql")]))]
+                   (jdbc/execute! ds [(slurp "sql/reference/v1/bls/ces/ees-industries-index.sql")]))]
     (spit "build/raw/reference/v1/bls/ces/index.clj"
           (format "(ns raw.reference.v1.bls.ces.index) \n \n %s"
                   (i/ees-alphabet-index index)))

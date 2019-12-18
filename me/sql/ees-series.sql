@@ -1,2 +1,0 @@
-select s.*, i.naics_code from warehouse.ees_series s join warehouse.ees_industry i on s.industry_code = i.industry_code
-where s.industry_code = '32311800';
