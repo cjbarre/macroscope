@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:18.04
 
 RUN apt-get update \
     && apt-get install -y --fix-missing wget curl make git openjdk-8-jre
@@ -22,6 +22,8 @@ RUN git clone https://github.com/cjbarre/tsv2csv.git \
     && chmod +x ./tsv2csv/tsv2csv \
     && mv ./tsv2csv/tsv2csv /usr/local/bin \
     && rm -r tsv2csv
+
+RUN apt-get install -y python3 python-pip && pip install xlsx2csv
 
 RUN apt-get install -y postgresql-client
 
