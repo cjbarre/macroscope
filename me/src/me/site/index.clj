@@ -1,13 +1,12 @@
 (ns me.site.index
-  (:require [me.meca :as meca]))
+  (:require [me.meca :as meca]
+            [me.site.components.author :as a]))
 
 (def page 
   [:div#body-container.tes
    [:div.landing-page-article
     [:div.landing-page-article-title :meca/title]
-    [:div.landing-page-article-meta
-     [:img.landing-page-article-author-img {:src "/assets/cam.png"}]
-     [:div.landing-page-article-author :meca/author]]
+    a/author
     [:div.landing-page-article-content
 
      [:p.landing-page-article-greeting :meca/greeting]

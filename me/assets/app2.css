@@ -1,0 +1,113 @@
+a {color: black;}
+
+a:hover {
+    color: gray;
+}
+
+.page-outer-container {
+    font-size: 25px;
+    margin-left: 15%;
+    margin-right: 15%;
+    line-height: 37.5px;
+    padding-top: 5vh;
+}
+
+.page-inner-container {
+    padding-left: 15.5vw;
+    padding-right: 15.5vw;
+}
+
+.page-title {
+    font-size: 40px;
+}
+
+.page-content {
+    font-size: 22px;
+    line-height: 30.54px;
+}
+
+.page-author {
+    font-size: 20px;
+}
+
+.page-author-img {
+    width: 64px;
+    height: 64px;
+}
+
+.page-meta {
+    margin-top: 2vh;
+    margin-bottom: 4vh;
+    display: grid;
+    grid-template-columns: 64px 150px;
+    column-gap: 15px;
+}
+
+.page-greeting {
+    font-size: 28px;
+}
+
+.landing-page-product-1 {
+    font-size: 27px;
+    color: black;
+}
+
+.landing-page-product-1:hover {
+    color: gray;
+}
+
+
+@media screen and (max-width: 1500px) {
+    .page-inner-container {
+        padding-left: 10.5vw;
+        padding-right: 10.5vw;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .page-inner-container {
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    #header-container {
+        text-align: center;
+    }
+    .page-outer-container {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .page-outer-container {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    #header-container > li {
+        display: block;
+    }
+    #header-container > li {
+        text-align: left;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .page-outer-container {
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+}
+
+
+canvas {
+    
+}
+
+summary {
+    visibility:  hidden;
+}

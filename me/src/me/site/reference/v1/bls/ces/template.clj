@@ -1,66 +1,76 @@
-(ns me.site.reference.v1.bls.ces.template)
+(ns me.site.reference.v1.bls.ces.template
+  (:require [me.meca :as meca]
+            [me.site.components.author :as a]
+            [clojure.string :as string]))
 
 (defn main-chart [data series-title]
   {:data data
-   :height 250
-   :width 500
-   :mark {:type "area"}
-   :title {:text series-title
-           :fontSize 20}
-   :encoding {:x {:field "period" 
-                  :type "temporal" 
-                  :timeUnit "utcyearmonth"}
-              :y {:field "value" :type "quantitative"}}})
-
-(defn details-chart [data]
-  {:data data
-   :height 100
-   :width 500
-   :mark "area"
-   :selection {:brush {:type "interval" :encodings ["x"]}}
-   :encoding {:x {:field "period" :type "temporal" :timeUnit "utcyearmonth"}
-              :y {:field "value" :type "quantitative"}}})
+   :height 300
+   :width "container"
+   :background "#F8F6F6"
+   :title (first (string/split series-title #","))
+   :mark {:type "area" :tooltip true :color "#8d9db6"}
+   :encoding {:x {:field "period"
+                  :type "temporal"
+                  :timeUnit "yearmonth"
+                  :axis {:title nil
+                         :titleFontSize 15
+                         :titlePadding 10
+                         :format "%m/%y"
+                         :labelPadding 10
+                         :labelFontSize 14
+                         :labelFlush false}}
+              :y {:field "value" 
+                  :type "quantitative"
+                  :axis {:title (first (string/split series-title #","))
+                         :titleFontSize 15
+                         :titlePadding 5
+                         :labelPadding 10
+                         :labelFontSize 14}}}})
 
 (defn rate-of-change-12-mo [data]
   {:data data
-   :height 250
-   :width 500
-   :mark "area"
-   :encoding {:x {:field "period" :type "temporal" :timeUnit "utcyearmonth"}
-              :y {:field "value" :type "quantitative"}}})
-
-(def main-series-text
-  [:div
-   [:p.section-p "Here is a ten year window of offical data."]
-   [:p.section-p "This view of the data sets the context, but it's difficult to gain insight without
-                  further inspection."]])
-
-(def rate-of-change-12-text
-  [:div
-   [:p.section-p "By comparing the ROC12 to the official data, consider whether the 
-                  current trend is slowing down or picking up speed."]
-   [:p.section-p "If the trend is moving towards zero, in either direction, it is slowing down.
-                  If it's moving away from zero, in either direction, it's speeding up."]
-   [:p.section-p "Positive means growing, negative means shrinking."]])
+   :height 300
+   :width "container"
+   :background "#F8F6F6"
+   :title "Rate of Change"
+   :mark {:type "area" :tooltip true :color "#667292"}
+   :encoding {:x {:field "period" 
+                  :type "temporal" 
+                  :timeUnit "utcyearmonth"
+                  :axis {:title nil
+                         :titleFontSize 15
+                         :titlePadding 10
+                         :format "%m/%y"
+                         :labelPadding 10
+                         :labelFontSize 14
+                         :labelFlush false}}
+              :y {:field "value" 
+                  :type "quantitative"
+                  :axis {:title "% change"
+                         :titleFontSize 15
+                         :titlePadding 5
+                         :labelPadding 10
+                         :labelFontSize 14}}}})
 
 (defn page [series-id series-title naics-code]
   (let [main-data {:url (format "data/%s.json" series-id)}
         roc-12-mo-data {:url (format "data/%s-roc12.json" series-id)}]
-    [:div#body-container
-     [:div#series-title series-title]
-     [:div#series-source "Source: Bureau of Labor Statistics"]
-     [:div#series-id (format "Series ID: %s" series-id)]
-     [:a {:href (format "/reference/v1/census/naics-2017/%s.html" naics-code)} "Learn more about this industry (NAICS)"]
-     [:div.section
-      [:div.section-header
-       [:div.section-title "Official Data"]]
-      [:div.section-body
-       [:div main-series-text]
-       [:vega-lite (main-chart main-data series-title)]]]
-     [:div.section
-      [:div.section-header
-       [:div.section-title "Rate of Change (ROC12)"]]
-      [:div.section-body
-       [:vega-lite (rate-of-change-12-mo roc-12-mo-data)]
-       rate-of-change-12-text]]]))
-
+    (meca/replace
+     (meca/read-file "copy/bls-ces-page.meca")
+     [:div.page-outer-container.test
+      [:div.page-inner-container
+       [:div.page-content
+        [:div.page-title series-title]
+        a/author
+        [:h3 :meca/s1-title]
+        [:p [:a {:href (format "../../census/naics-2017/%s.html" naics-code)}
+             :meca/s1-p1]]
+        [:h3 :meca/s2-title]
+        [:p :meca/s2-p1]
+        [:vega-lite (main-chart main-data series-title)]
+        [:h3 :meca/s3-title]
+        [:p :meca/s3-p1]
+        [:p :meca/s3-p2]
+        [:p :meca/s3-p3]
+        [:vega-lite (rate-of-change-12-mo roc-12-mo-data)]]]])))

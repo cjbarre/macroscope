@@ -1,6 +1,6 @@
 @font-face {
     font-family: site-font;
-    src: url(/assets/TheanoDidot-Regular.ttf)
+    src: url(/assets/FreeSerif.ttf)
 }
 
 #main-container {}
@@ -22,7 +22,7 @@
 }
 
 #header-container > li:not(:first-child) {
-    border-left: 2px #3399FF solid;
+    border-left: 2px #87bdd8 solid;
     padding-left: 20px;
 }
 

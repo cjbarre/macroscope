@@ -10,7 +10,7 @@ with x as (
 )
 select series_id,
     json_agg(json_build_object('value', trunc(cast((current / previous - 1) * 100 as numeric), 3),
-                                'period', year || '-' || regexp_replace(period, 'M', ''))
+                                'period', year || '-' || regexp_replace(period, 'M', '') || '-01 00:00:00')
                 order by x.year, x.period) as data
 from x
 where year = date_part('year', now())::text
