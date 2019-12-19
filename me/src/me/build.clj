@@ -12,15 +12,14 @@
      :as-assets? true}]))
 
 (defn start-production-build! []
-  (oz/build!
+  (oz/build-fast!
    [{:from "build/raw/"
      :to "build/site/"
      :template-fn #'t/site-template}
     {:from "assets/"
      :to "build/site/assets/"
-     :as-assets? true}]
-   :live? false
-   :lazy? false
-   :view? false))
+     :as-assets? true}]))
+
+(start-production-build!)
 
 #_(start-dynamic-build!)
