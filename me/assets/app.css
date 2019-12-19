@@ -5,7 +5,6 @@
     margin-bottom: 50px;
     padding-top: 15px;
     padding-left: 15px;
-    background-color: #F0F0F0;
     vertical-align: middle;
     padding-bottom: 12px;
     border-radius: 5px;
@@ -152,8 +151,6 @@ html {
     display: grid;
     background-color: #F0F0F0;
     margin-top: 50px;
-    margin-left: 10vw;
-    margin-right: 10vw;
     padding: 5vw;
 }
 
