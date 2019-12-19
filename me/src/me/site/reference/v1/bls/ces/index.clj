@@ -2,7 +2,7 @@
   (:require [me.site.reference.v1.bls.glue :as glue]))
 
 (defn ees-alphabet-index [index]
-  [:div#body-container
+  [:div.page-outer-container
    [:div#series-title "Establishment Survey"]
    [:div#series-source "Bureau of Labor Statistics"]
    [:div.index-cta "browse by industry"]
@@ -26,7 +26,7 @@
 
 
 (defn ees-industry-index [industry-index]
-  [:div#body-container
+  [:div.page-outer-container
    [:div#series-title (:industry_name industry-index) ]
    [:div#series-source "Bureau of Labor Statistics" ]
    [:div.index-cta "Establishment Survey"]

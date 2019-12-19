@@ -1,5 +1,6 @@
 (ns me.site.tos
-  (:require [me.meca :as meca]))
+  (:require [me.meca :as meca]
+            [me.site.components.author :as a]))
 
 (defn tos-section 
   [heading title text]
@@ -9,14 +10,11 @@
    [:p text]])
 
 (def page
-  [:div#body-container.tes
-   [:div.landing-page-article
-    [:div.landing-page-article-title :meca/title]
-    [:div.landing-page-article-meta
-     [:img.landing-page-article-author-img {:src "/assets/cam.png"}]
-     [:div.landing-page-article-author :meca/author]]
-    [:div.landing-page-article-content
-
+  [:div.page-outer-container
+   [:div.page-inner-container
+    [:div.page-title :meca/title]
+    a/author
+    [:div.page-content
      [:p.landing-page-article-greeting :meca/greeting]
      [:p :meca/favor]
      [:h1 "Section 1"]
