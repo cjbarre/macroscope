@@ -1,5 +1,6 @@
 (ns me.site.reference.v1.census.naics-2017.generator
   (:require [me.site.reference.v1.storage :as s]
+            [me.site.components.author :as a]
             [clojure.java.io :as io]
             [clojure.core.reducers :as r]
             [next.jdbc :as jdbc]
@@ -7,10 +8,11 @@
             [clojure.string :as string]))
 
 (defn page [data]
-  [:div#body-container
-   [:div.landing-page-article
-    [:div.landing-page-article-title (:naics_2017_descriptions/title data)]
-    [:div.landing-page-article-content
+  [:div.page-outer-container
+   [:div.page-inner-container
+    [:div.page-title (:naics_2017_descriptions/title data)]
+    a/author
+    [:div.page-content
      (vec (concat [:div]
                   (-> data
                       :description
