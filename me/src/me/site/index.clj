@@ -3,12 +3,11 @@
             [me.site.components.author :as a]))
 
 (def page 
-  [:div#body-container.tes
-   [:div.landing-page-article
-    [:div.landing-page-article-title :meca/title]
+  [:div.page-outer-container
+   [:div.page-inner-container
+    [:div.page-title :meca/title]
     a/author
-    [:div.landing-page-article-content
-
+    [:div.page-content
      [:p.landing-page-article-greeting :meca/greeting]
      [:p :meca/favor]
      [:p :meca/body-p-1]

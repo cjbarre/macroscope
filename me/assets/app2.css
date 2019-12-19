@@ -1,3 +1,9 @@
+@font-face {
+    font-family: site-font;
+    src: url(/assets/fonts/FreeSeriff.ttf)
+}
+
+
 a {color: black;}
 
 a:hover {
@@ -19,6 +25,7 @@ a:hover {
 
 .page-title {
     font-size: 40px;
+    line-height: 45px;
 }
 
 .page-content {
