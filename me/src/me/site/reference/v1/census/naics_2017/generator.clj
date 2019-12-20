@@ -1,8 +1,9 @@
 (ns me.site.reference.v1.census.naics-2017.generator
   (:require [me.site.reference.v1.storage :as s]
-            [me.site.components.author :as a]
+            [me.site.components 
+             [author :as a]
+             [a-z-index :as azi]]
             [me.site.render :as render]
-            [me.site.reference.v1.census.naics-2017.index :as i]
             [clojure.java.io :as io]
             [clojure.core.reducers :as r]
             [next.jdbc :as jdbc]
@@ -55,12 +56,17 @@
 ;;; Index Generation ;;;
 
 (defn generate-indices []
-  (let [a-z-data (map #(update % :items (fn [x] (json/read-str (str x) :key-fn keyword)))
+  (let [a-z-data (map #(update % :items
+                               (fn [x] (->> (json/read-str (str x) :key-fn keyword)
+                                            (map (fn [item] {:target (format "./%s.html" (:value item))
+                                                             :text (format "<b>%s</b> %s"
+                                                                           (:value item)
+                                                                           (:text item))})))))
                       (jdbc/execute! s/ds [(slurp "sql/reference/v1/census/naics-2017/a-z-index.sql")]))]
     (spit "build/site/reference/v1/census/naics-2017/index.html"
           (render/->html
            {:title "The Reference > Census Bureau > NAICS 2017 > Index"
-            :content (i/a-z-index a-z-data)}))))
+            :content (azi/a-z-index a-z-data)}))))
 
 (defn generate []
   (.mkdirs (io/file "build/site/reference/v1/census/naics-2017/"))
