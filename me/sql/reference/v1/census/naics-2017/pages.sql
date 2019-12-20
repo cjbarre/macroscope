@@ -37,7 +37,7 @@ with corrected_nulls_01 as (
          order by code_01
      )
 select code_01 as naics_code,
-       nd2.title as title,
+       regexp_replace(trim(nd2.title),'T$', ' (T)') as title,
        nd.description,
        (select json_agg(cross_reference) from warehouse.naics_2017_industry_cross_references ncr where ncr.code = code_01) as cross_references,
        (select json_agg(index_item_description) from warehouse.naics_2017_index ni where ni.naics17 = code_01) as index_items
@@ -45,5 +45,3 @@ from naics_2017_descriptions nd
 left join warehouse.naics_2017_descriptions nd2 on nd2.code = code_01
 group by 1,2,3
 order by code_01;
-
-

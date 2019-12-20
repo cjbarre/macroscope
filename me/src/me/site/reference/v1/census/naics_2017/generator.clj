@@ -13,7 +13,7 @@
 (defn page [data]
   [:div.page-outer-container
    [:div.page-inner-container
-    [:div.page-title (:naics_2017_descriptions/title data)]
+    [:div.page-title (:title data)]
     a/author
     [:div.page-content
      (vec (concat [:div]
@@ -49,7 +49,7 @@
                                                    (:naics_code x))
                                            (render/->html {:title (format "The Reference > NAICS > (%s) %s "
                                                                           (:naics_code x)
-                                                                          (:naics_2017_descriptions/title x))
+                                                                          (:title x))
                                                            :content (page x)})))
                              (jdbc/execute! s/ds [(slurp "sql/reference/v1/census/naics-2017/pages.sql")]))))))
 

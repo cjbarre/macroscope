@@ -1,6 +1,6 @@
 with a_z_index as (
     select substr(nd.code, 1, 1) as letter,
-           nd.title as text,
+           regexp_replace(trim(nd.title), 'T$', ' (T)') as text,
            nd.code as value
     from warehouse.naics_2017_descriptions nd
     group by 1, 2, 3
