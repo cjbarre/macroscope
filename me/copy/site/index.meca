@@ -32,7 +32,7 @@ The Mortal Economics Reference (opens in new tab)
 ---
 product-1-desc
 |||
-The Reference provides a simple overview of every data series Mortal Economics consumes. It is organized by data source, such as <i>The Bureau of Labor Statistics (BLS)</i>, then further organized by release, such as <i>The Establishment Survey</i> portion of the monthly <i>Employment Situation Report</i> from the BLS.
+The Reference provides a simple overview of every data series Mortal Economics consumes. It is organized by data source, such as <i>The Bureau of Labor Statistics</i>, then further organized by release, such as The <i>Current Employment Statistics</i>.
 ---
 product-1-desc-2
 |||
@@ -40,8 +40,9 @@ The reference is always up to date, because the latest data is incorporated on t
 ---
 outro
 |||
-I hope you enjoy using the reference as much as I have enjoyed creating it. I find it to be a valuable resource for exploring economic trends and checking up on common macro-economic indicators. I'm certain you will as well. Please email me directly at cameron@mortaleconomics.com if you would like to provide feedback or need support.
+I hope you enjoy using the reference. I find it to be a valuable resource for exploring macro-economic trends and checking up on common macro-economic indicators. Please email me directly at <a href="mailto:cameron@mortaleconomics.com">cameron@mortaleconomics.com</a> if you would like to provide feedback or need support.
 ---
-about-header
+sign-off
 |||
-About Mortal Economics
+Thank you for reading,<br> Cameron
+

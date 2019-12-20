@@ -20,7 +20,8 @@
           :meca/product-1]]
      [:p :meca/product-1-desc]
      [:p :meca/product-1-desc-2]
-     [:p :meca/outro]]]])
+     [:p :meca/outro]
+     [:p :meca/sign-off]]]])
 
 (defn generate []
   (spit "build/site/index.html"
