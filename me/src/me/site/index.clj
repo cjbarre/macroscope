@@ -1,6 +1,7 @@
 (ns me.site.index
   (:require [me.meca :as meca]
-            [me.site.components.author :as a]))
+            [me.site.components.author :as a]
+            [me.site.render :as r]))
 
 (def page 
   [:div.page-outer-container
@@ -21,8 +22,9 @@
      [:p :meca/product-1-desc-2]
      [:p :meca/outro]]]])
 
-(spit "build/raw/index.clj"
-      (format "(ns raw.index) \n \n %s"
-       (meca/replace
-        (meca/read-file "copy/index.meca")
-        page)))
+(defn generate []
+  (spit "build/site/index.html"
+        (r/->html {:title "Mortal Economics"
+                   :content (meca/replace
+                             (meca/read-file "copy/index.meca")
+                             page)})))

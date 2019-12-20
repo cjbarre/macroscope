@@ -1,5 +1,6 @@
 (ns me.site.reference.v1.bls.ces.template
   (:require [me.meca :as meca]
+            [me.vega-embed :as v]
             [me.site.components.author :as a]
             [clojure.string :as string]))
 
@@ -68,9 +69,9 @@
              :meca/s1-p1]]
         [:h3 :meca/s2-title]
         [:p :meca/s2-p1]
-        [:vega-lite (main-chart main-data series-title)]
+        (v/vega-embed [:vega-lite (main-chart main-data series-title)])
         [:h3 :meca/s3-title]
         [:p :meca/s3-p1]
         [:p :meca/s3-p2]
         [:p :meca/s3-p3]
-        [:vega-lite (rate-of-change-12-mo roc-12-mo-data)]]]])))
+        (v/vega-embed [:vega-lite (rate-of-change-12-mo roc-12-mo-data)])]]])))

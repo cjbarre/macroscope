@@ -1,6 +1,7 @@
 (ns me.site.tos
   (:require [me.meca :as meca]
-            [me.site.components.author :as a]))
+            [me.site.components.author :as a]
+            [me.site.render :as r]))
 
 (defn tos-section 
   [heading title text]
@@ -30,10 +31,8 @@
                   :meca/s1-3-text)]]])
 
 (defn generate []
-  (spit "build/raw/tos.clj"
-        (format "(ns raw.tos) \n \n %s"
-                (meca/replace
-                 (meca/read-file "copy/tos.meca")
-                 page))))
-
-(generate)
+  (spit "build/site/tos.html"
+        (r/->html {:title "Terms of Service"
+                   :content (meca/replace
+                             (meca/read-file "copy/tos.meca")
+                             page)})))

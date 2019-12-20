@@ -3,6 +3,7 @@
             [clojure.core.reducers :as r]
             [clojure.data.json :as json]
             [clojure.java.io :as io]
+            [me.site.render :as render]
             [me.site.reference.v1.bls.ces.template :as p]
             [me.site.reference.v1.bls.ces.index :as i]
             [me.site.reference.v1.bls.glue :as glue]
@@ -44,18 +45,18 @@
 ;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn generate-static-ees-pages []
-  (.mkdirs (io/file "build/raw/reference/v1/bls/ces/"))
-  (time (into [] 
-              (r/fold conj 
-                      (r/map (fn [x] (spit (format "build/raw/reference/v1/bls/ces/%s.clj"
-                                                   (-> (:ees_series/series_id x)
-                                                       (str "-" (:ees_series/series_title x))
-                                                       (clojure.string/replace #"\W+" "-")
-                                                       (clojure.string/lower-case)))
-                                           (format "(ns raw.reference.v1.bls.ces.%s) \n\n %s"
-                                                   (:ees_series/series_id x)
-                                                   (p/page (:ees_series/series_id x) (:ees_series/series_title x) (:ees_industry/naics_code x)))))
-                             (jdbc/execute! ds [(slurp "sql/reference/v1/bls/ces/ees-series.sql")]))))))
+  (.mkdirs (io/file "build/site/reference/v1/bls/ces/"))
+  (time (doall (pmap (fn [x] (spit (format "build/site/reference/v1/bls/ces/%s.html"
+                                           (glue/slug (str (:ees_series/series_id x)
+                                                           "-"
+                                                           (:ees_series/series_title x))))
+                                   (render/->html
+                                    {:title (:ees_series/series_title x)
+                                     :content (p/page (:ees_series/series_id x)
+                                                      (:ees_series/series_title x)
+                                                      (:ees_industry/naics_code x))})))
+                     (jdbc/execute! ds [(slurp "sql/reference/v1/bls/ces/ees-series.sql")]))))
+  nil)
 
 #_(generate-static-ees-pages)
 
@@ -64,17 +65,20 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn generate-ees-indicies []
-  (.mkdirs (io/file "build/raw/reference/v1/bls/ces/index"))
+  (.mkdirs (io/file "build/site/reference/v1/bls/ces/index"))
   (let [index (map #(update % :industries (fn [x] (json/read-str (str x) :key-fn keyword)))
                    (jdbc/execute! ds [(slurp "sql/reference/v1/bls/ces/ees-industries-index.sql")]))]
-    (spit "build/raw/reference/v1/bls/ces/index.clj"
-          (format "(ns raw.reference.v1.bls.ces.index) \n \n %s"
-                  (i/ees-alphabet-index index)))
-    (mapv #(spit (format "build/raw/reference/v1/bls/ces/index/%s-index.clj"
+    (spit "build/site/reference/v1/bls/ces/index.html"
+          (render/->html
+           {:title "The Reference > Bureau of Labor Statistics > Current Employment Situation > Index"
+            :content (i/ees-alphabet-index index)}))
+    
+    (mapv #(spit (format "build/site/reference/v1/bls/ces/index/%s-index.html"
                          (glue/slug (:industry_name %)))
-                 (format "(ns raw.reference.v1.bls.ces.index.%s) \n \n %s"
-                         (glue/slug (:industry_name %))
-                         (i/ees-industry-index %)))
+                 (render/->html
+                  {:title (format "The Reference > Bureau of Labor Statistics > Current Employment Situation > %s > Index"
+                                  (:industry_name %))
+                   :content (i/ees-industry-index %)}))
           (mapcat :industries index))))
 
 ;;;;;;;;;;
@@ -85,9 +89,7 @@
 ;;; Main ;;;
 ;;;;;;;;;;;;
 
-(defn generate-site []
+(defn generate []
   (generate-static-ees-data)
   (generate-static-ees-pages)
   (generate-ees-indicies))
-
-#_(generate-site)

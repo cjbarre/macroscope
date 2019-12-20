@@ -1,6 +1,7 @@
 (ns me.site.reference.v1.census.naics-2017.generator
   (:require [me.site.reference.v1.storage :as s]
             [me.site.components.author :as a]
+            [me.site.render :as render]
             [clojure.java.io :as io]
             [clojure.core.reducers :as r]
             [next.jdbc :as jdbc]
@@ -39,17 +40,14 @@
                          json/read-str
                          (->> (map #(vector :li %))))))])]]])
 
-(defn generate-pages []
-  (.mkdirs (io/file "build/raw/reference/v1/census/naics-2017/"))
+(defn generate []
+  (.mkdirs (io/file "build/site/reference/v1/census/naics-2017/"))
   (time (into []
               (r/fold conj
-                      (r/map (fn [x] (spit (format "build/raw/reference/v1/census/naics-2017/%s.clj"
+                      (r/map (fn [x] (spit (format "build/site/reference/v1/census/naics-2017/%s.html"
                                                    (:naics_code x))
-                                           (format "(ns raw.reference.v1.census.naics-2017.%s) \n\n %s"
-                                                   (:naics_code x)
-                                                   (page x))))
+                                           (render/->html {:title (format "The Reference > NAICS > (%s) %s "
+                                                                          (:naics_code x)
+                                                                          (:naics_2017_descriptions/title x))
+                                                           :content (page x)})))
                              (jdbc/execute! s/ds [(slurp "sql/reference/v1/census/naics-2017/pages.sql")]))))))
-
-#_(generate-pages)
-
-(comment )
