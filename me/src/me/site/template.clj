@@ -28,5 +28,5 @@
       [:li.site-title [:a {:href "#"} "FAQ"]]
       [:li.site-title [:a {:href "#"} "Blog"]]
       [:li.site-title
-       [:a {:href "/reference/v1/bls/ces/"} "Open The Reference"]]]
+       [:a {:href "/reference/v1/"} "Open The Reference"]]]
      content]]])

@@ -15,7 +15,7 @@
      [:p :meca/body-p-2]
      [:p :meca/body-p-3]
      [:p [:a.landing-page-product-1
-          {:href "/reference/v1/bls/ces/"
+          {:href "/reference/v1/"
            :target "_blank"}
           :meca/product-1]]
      [:p :meca/product-1-desc]

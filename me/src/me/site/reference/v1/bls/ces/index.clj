@@ -3,7 +3,7 @@
 
 (defn ees-alphabet-index [index]
   [:div.page-outer-container
-   [:div#series-title "Current Establishment Situation"]
+   [:div#series-title "Current Employment Statistics"]
    [:div#series-source "Bureau of Labor Statistics"]
    [:div.index-a2z-container
     (vec (concat [:ul]
@@ -28,7 +28,7 @@
   [:div.page-outer-container
    [:div#series-title (:industry_name industry-index) ]
    [:div#series-source "Bureau of Labor Statistics" ]
-   [:div.index-cta "Establishment Survey"]
+   [:div.index-cta "Current Employment Statistics"]
    [:div.landing-page-article {:style "background-color: #F0F0F0;padding-top:15px;margin-top:50px;"}
     (vec (concat [:ul {:style "list-style:none;"}]
                  (mapv #(vector :li {:style "border-left: 2px gray solid;margin-bottom:25px;padding-left: 15px;"}

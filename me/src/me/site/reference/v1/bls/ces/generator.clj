@@ -70,13 +70,13 @@
                    (jdbc/execute! ds [(slurp "sql/reference/v1/bls/ces/ees-industries-index.sql")]))]
     (spit "build/site/reference/v1/bls/ces/index.html"
           (render/->html
-           {:title "The Reference > Bureau of Labor Statistics > Current Employment Situation > Index"
+           {:title "The Reference > Bureau of Labor Statistics > Current Employment Statistics > Index"
             :content (i/ees-alphabet-index index)}))
     
     (mapv #(spit (format "build/site/reference/v1/bls/ces/index/%s-index.html"
                          (glue/slug (:industry_name %)))
                  (render/->html
-                  {:title (format "The Reference > Bureau of Labor Statistics > Current Employment Situation > %s > Index"
+                  {:title (format "The Reference > Bureau of Labor Statistics > Current Employment Statistics > %s > Index"
                                   (:industry_name %))
                    :content (i/ees-industry-index %)}))
           (mapcat :industries index))))
