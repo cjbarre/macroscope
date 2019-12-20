@@ -47,7 +47,7 @@
               (r/fold conj
                       (r/map (fn [x] (spit (format "build/site/reference/v1/census/naics-2017/%s.html"
                                                    (:naics_code x))
-                                           (render/->html {:title (format "The Reference > NAICS > (%s) %s "
+                                           (render/->html {:title (format "The Reference > NAICS 2017 > (%s) %s "
                                                                           (:naics_code x)
                                                                           (:title x))
                                                            :content (page x)})))
@@ -66,6 +66,7 @@
     (spit "build/site/reference/v1/census/naics-2017/index.html"
           (render/->html
            {:title "The Reference > Census Bureau > NAICS 2017 > Index"
+            
             :content (azi/a-z-index a-z-data)}))))
 
 (defn generate []
