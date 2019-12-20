@@ -58,7 +58,7 @@
   (let [main-data {:url (format "data/%s.json" series-id)}
         roc-12-mo-data {:url (format "data/%s-roc12.json" series-id)}]
     (meca/replace
-     (meca/read-file "copy/bls-ces-page.meca")
+     (meca/read-file "copy/site/reference/v1/bls/ces/page.meca")
      [:div.page-outer-container.test
       [:div.page-inner-container
        [:div.page-content

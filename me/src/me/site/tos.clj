@@ -34,5 +34,5 @@
   (spit "build/site/tos.html"
         (r/->html {:title "Terms of Service"
                    :content (meca/replace
-                             (meca/read-file "copy/tos.meca")
+                             (meca/read-file "copy/site/tos.meca")
                              page)})))

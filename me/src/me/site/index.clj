@@ -26,5 +26,5 @@
   (spit "build/site/index.html"
         (r/->html {:title "Mortal Economics"
                    :content (meca/replace
-                             (meca/read-file "copy/index.meca")
+                             (meca/read-file "copy/site/index.meca")
                              page)})))
