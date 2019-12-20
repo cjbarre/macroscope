@@ -3,9 +3,8 @@
 
 (defn ees-alphabet-index [index]
   [:div.page-outer-container
-   [:div#series-title "Establishment Survey"]
+   [:div#series-title "Current Establishment Situation"]
    [:div#series-source "Bureau of Labor Statistics"]
-   [:div.index-cta "browse by industry"]
    [:div.index-a2z-container
     (vec (concat [:ul]
                  (mapv #(vector :li
