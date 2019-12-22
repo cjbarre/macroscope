@@ -51,15 +51,17 @@
                                                            "-"
                                                            (:ees_series/series_title x))))
                                    (render/->html
-                                    {:title (:ees_series/series_title x)
+                                    {:title (format "The Reference > Bureau of Labor Statistics > Current Employment Statistics > %s > %s"
+                                                    (:ees_industry/industry_name x)
+                                                    (:ees_series/series_title x))
                                      :content (p/page (:ees_series/series_id x)
                                                       (:ees_series/series_title x)
                                                       (:ees_industry/naics_code x))})))
                      (jdbc/execute! ds [(slurp "sql/reference/v1/bls/ces/ees-series.sql")]))))
   nil)
 
-#_(generate-static-ees-pages)
 
+#_(generate-static-ees-pages)
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Index Generation ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;
@@ -70,13 +72,13 @@
                    (jdbc/execute! ds [(slurp "sql/reference/v1/bls/ces/ees-industries-index.sql")]))]
     (spit "build/site/reference/v1/bls/ces/index.html"
           (render/->html
-           {:title "The Reference > Bureau of Labor Statistics > Current Employment Statistics > Index"
+           {:title "The Reference > Bureau of Labor Statistics > Current Employment Statistics"
             :content (i/ees-alphabet-index index)}))
     
     (mapv #(spit (format "build/site/reference/v1/bls/ces/index/%s-index.html"
                          (glue/slug (:industry_name %)))
                  (render/->html
-                  {:title (format "The Reference > Bureau of Labor Statistics > Current Employment Statistics > %s > Index"
+                  {:title (format "The Reference > Bureau of Labor Statistics > Current Employment Statistics > %s"
                                   (:industry_name %))
                    :content (i/ees-industry-index %)}))
           (mapcat :industries index))))
@@ -93,3 +95,4 @@
   (generate-static-ees-data)
   (generate-static-ees-pages)
   (generate-ees-indicies))
+
