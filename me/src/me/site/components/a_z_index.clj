@@ -2,15 +2,15 @@
 
 (defn a-z-index [a-z-data]
   [:div.page-outer-container
-   [:div#series-title "NAICS 2017"]
-   [:div#series-source "Census Bureau"]
+   [:div#series-title (or (:title a-z-data) "")]
+   [:div#series-source (or (:source a-z-data) "")]
    [:div.index-a2z-container
     (vec (concat [:ul]
                  (mapv #(vector :li
                                 [:a.index-a.index-text-hover
                                  {:href (format "#%s" (:letter %))}
                                  (:letter %)])
-                       a-z-data)))]
+                       (:content a-z-data))))]
    (vec (concat [:div.index-a2z-contents]
                 (mapv #(vector :div.index-a2z-section
                                [:div [:a.index-a {:name (:letter %)} (:letter %)]]
@@ -19,4 +19,4 @@
                                                            [:a.index-a.index-text-hover {:href (:target x)}
                                                             (:text x)]])
                                                   (:items %)))))
-                      a-z-data)))])
+                      (:content a-z-data))))])

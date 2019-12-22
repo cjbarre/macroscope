@@ -65,9 +65,11 @@
                       (jdbc/execute! s/ds [(slurp "sql/reference/v1/census/naics-2017/a-z-index.sql")]))]
     (spit "build/site/reference/v1/census/naics-2017/index.html"
           (render/->html
-           {:title "The Reference > Census Bureau > NAICS 2017 > Index"
-            
-            :content (azi/a-z-index a-z-data)}))))
+           {:title "The Reference > Census Bureau > NAICS 2017"
+            :description "Find NAICS 2017 definitions from the Census Bureau"
+            :content (azi/a-z-index {:title "NAICS 2017" 
+                                     :source "Census Bureau"
+                                     :content a-z-data})}))))
 
 (defn generate []
   (.mkdirs (io/file "build/site/reference/v1/census/naics-2017/"))
