@@ -38,7 +38,7 @@
    :mark {:type "area" :tooltip true :color "#667292"}
    :encoding {:x {:field "period" 
                   :type "temporal" 
-                  :timeUnit "utcyearmonth"
+                  :timeUnit "yearmonth"
                   :axis {:title nil
                          :titleFontSize 15
                          :titlePadding 10
