@@ -24,11 +24,11 @@
     [:div#main-container
      [:ul#header-container
       [:li.site-title [:a {:href "/"} "Mortal Economics"]]
+      [:li.site-title
+       [:a {:href "/reference/v1/"} "Open The Reference"]]
       [:li.site-title [:a {:href "/about.html"} "About"]]
+      [:li.site-title [:a {:href "/tos.html"} "ToS"]]
       #_[:li.site-title [:a {:href "#"} "FAQ"]]
       #_[:li.site-title [:a {:href "#"} "Blog"]]
-      [:li.site-title
-       [:a {:href "/reference/v1/"} "Open The Reference"]]]
-     content
-     [:div.footer-container
-      "test"]]]])
+      ]
+     content]]])
