@@ -11,12 +11,12 @@
     [:div.page-content
      [:p.landing-page-article-greeting :meca/greeting]
      [:p :meca/favor]
+     [:p [:a {:href "/reference/v1"} :meca/cta]]
      [:p :meca/p1]
      [:p :meca/p2]
      [:p :meca/p3]
      [:p :meca/p4]
-     [:p :meca/p5]
-     [:p [:a {:href "/reference/v1"} :meca/p6]]]]])
+     [:p :meca/p5]]]])
 
 (defn generate []
   (spit "build/site/index.html"

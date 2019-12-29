@@ -25,10 +25,9 @@
      [:ul#header-container
       [:li.site-title [:a {:href "/"} "Mortal Economics"]]
       [:li.site-title
-       [:a {:href "/reference/v1/"} "Open The Reference"]]
+       [:a {:href "/reference/v1/"} "Reference"]]
       [:li.site-title [:a {:href "/about.html"} "About"]]
       [:li.site-title [:a {:href "/tos.html"} "ToS"]]
       #_[:li.site-title [:a {:href "#"} "FAQ"]]
-      #_[:li.site-title [:a {:href "#"} "Blog"]]
-      ]
+      #_[:li.site-title [:a {:href "#"} "Blog"]]]
      content]]])
