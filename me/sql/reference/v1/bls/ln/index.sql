@@ -1,6 +1,6 @@
 with a_z_index as (
     select substr(nd.indy_text, 1, 1) as letter,
-           regexp_replace(trim(nd.indy_text), 'T$', ' (T)') as text,
+           nd.indy_text as text,
            nd.indy_code as value
     from warehouse.hes_indy nd
     group by 1, 2, 3
