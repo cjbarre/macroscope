@@ -1,7 +1,8 @@
 (ns me.site.reference.v1.index
   (:require [me.site.components.classic-page :as p]
             [me.meca :as meca]
-            [me.site.render :as r]))
+            [me.site.render :as r]
+            [clojure.java.io :as io]))
 
 (def page 
   (p/classic-page 
@@ -11,11 +12,12 @@
     [:h4 "Bureau of Labor Statistics"]
     [:a {:href "./bls/ces/"} "Current Employment Statistics"]
     [:br]
-    [:a {:href "./bls/ln/"} "Current Population Survey (Labor Statistics)"]
+    #_[:a {:href "./bls/ln/"} "Current Population Survey (Labor Statistics)"]
     [:h4 "Census Bureau"]
     [:a {:href "./census/naics-2017/"} "NAICS 2017"]]))
 
 (defn generate []
+  (.mkdirs (io/file "build/site/reference/v1/"))
   (spit "build/site/reference/v1/index.html"
         (r/->html {:title "The Reference"
                    :content (meca/replace
