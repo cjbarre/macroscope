@@ -24,7 +24,7 @@ It's technically simple and typographically tailored to make browsing official d
 ---
 p4
 |||
-The reference is produced from the our data warehouse. This means that reference pages are updated automatically on official release cycles and revisions. This eliminates time spent keeping track of as many data sources as we track.
+The reference is produced from our data warehouse. This means that reference pages are updated automatically on official release cycles and revisions. This eliminates time spent keeping track of release schedules.
 ---
 p5
 |||
