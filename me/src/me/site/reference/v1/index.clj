@@ -10,6 +10,8 @@
     [:h3 "United States"]
     [:h4 "Bureau of Labor Statistics"]
     [:a {:href "./bls/ces/"} "Current Employment Statistics"]
+    [:br]
+    [:a {:href "./bls/ln/"} "Current Population Survey (Labor Statistics)"]
     [:h4 "Census Bureau"]
     [:a {:href "./census/naics-2017/"} "NAICS 2017"]]))
 

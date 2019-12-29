@@ -1,26 +1,25 @@
-(ns me.site.index
+(ns me.site.about
   (:require [me.meca :as meca]
             [me.site.components.author :as a]
             [me.site.render :as r]))
 
-(def page 
+(def page
   [:div.page-outer-container
    [:div.page-inner-container
     [:div.page-title :meca/title]
     a/author
     [:div.page-content
-     [:p.landing-page-article-greeting :meca/greeting]
-     [:p :meca/favor]
      [:p :meca/p1]
      [:p :meca/p2]
      [:p :meca/p3]
      [:p :meca/p4]
-     [:p :meca/p5]
-     [:p [:a {:href "/reference/v1"} :meca/p6]]]]])
+     [:h3 :meca/services-shout]
+     [:p :meca/services-cta]
+     [:p :meca/p6]]]])
 
 (defn generate []
-  (spit "build/site/index.html"
-        (r/->html {:title "Mortal Economics"
+  (spit "build/site/about.html"
+        (r/->html {:title "About Mortal Economics"
                    :content (meca/replace
-                             (meca/read-file "copy/site/index.meca")
+                             (meca/read-file "copy/site/about.meca")
                              page)})))

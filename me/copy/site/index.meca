@@ -1,10 +1,6 @@
 title
 |||
-Welcome to Mortal Economics
----
-author
-|||
-Cameron Barré
+Become a Macro Economic Wizard with Mortal Economics
 ---
 greeting
 |||
@@ -14,35 +10,26 @@ favor
 |||
 May I grab your attention for a minute?
 ---
-body-p-1
+p1
 |||
-Mortal Economics is a small business founded by myself, Cameron Barré. My mission is to simplify access to important economic data. The company name is a play on the notion that it takes a professional economist, or a seasoned investor, to utilize the most insightful data out there about the global economy. 
+The M.E. Reference provides a consistent experience for browsing a variety of economic data sources. 
 ---
-body-p-2
+p2
 |||
-There are too many data sources to name, too many reports to read, too many schedules to keep up with, and an astronomical amount of data formats to crunch. So, this is why M.E. is being created, to bring <i>us mortals</i> within striking distance of this important information, so that we can leverage it to be successful without it overwhelming us.
+It is designed to answer the same questions for every series in important numerical data sources such as the <i>Current Establishment Statistics</i> or the <i>Current Population Survey</i> from the <i>Bureau of Labor Statistics</i>.
 ---
-body-p-3
+p3
 |||
-I'm excited to share with you a <i>free</i> product:
+It's technically simple and typographically tailored to make browsing official data releases more enjoyable and less distracting.
 ---
-product-1
+p4
 |||
-The Mortal Economics Reference (opens in new tab)
+The M.E. Reference is produced from the Mortal Economics data warehouse. This means that Reference pages are updated automatically on official release cycles and revisions. This eliminates time spent keeping track of as many data sources as we track.
 ---
-product-1-desc
+p5
 |||
-The Reference provides a simple overview of every data series Mortal Economics consumes. It is organized by data source, such as <i>The Bureau of Labor Statistics</i>, then further organized by release, such as The <i>Current Employment Statistics</i>.
+Feel free to email me directly at <a href="mailto:cameron@mortaleconomics.com">cameron@mortaleconomics.com</a> if you would like to chat about Mortal Economics products and services. If you need support for any of our products, or if you have feedback about any of our products, please reach out!
 ---
-product-1-desc-2
+p6
 |||
-The reference is always up to date, because the latest data is incorporated on the official release cycle for each data series.
----
-outro
-|||
-I hope you enjoy using the reference. I find it to be a valuable resource for exploring macro-economic trends and checking up on common macro-economic indicators. Please email me directly at <a href="mailto:cameron@mortaleconomics.com">cameron@mortaleconomics.com</a> if you would like to provide feedback or need support.
----
-sign-off
-|||
-Thank you for reading,<br> Cameron
-
+Click here to open the Mortal Economics Reference
