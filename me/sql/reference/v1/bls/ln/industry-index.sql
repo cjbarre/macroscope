@@ -1,6 +1,7 @@
 select i.indy_text                                                                              as title,
        json_agg(json_build_object('value', series_id,
-                                  'text', p.periodicity_text || ' ' || series_title)
+                                  'text', p.periodicity_text || ' ' || series_title,
+                                  'series_title', series_title)
                 order by series_title) as items
 from warehouse.hes_series s
          join warehouse.hes_indy i on s.indy_code = i.indy_code
