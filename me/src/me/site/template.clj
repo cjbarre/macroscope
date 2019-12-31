@@ -1,9 +1,6 @@
 (ns me.site.template
   (:require [clojure.string :as string]))
 
-(def vega-embed-js
-  [:script {:src "https://cdn.jsdelivr.net/npm/vega-embed@6.2.1"}])
-
 (defn site-template
   [{:keys [content title description author keywords tags] :as params}]
   [:html
@@ -17,9 +14,9 @@
     [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]
     [:link {:rel "stylesheet" :type "text/css" :href "/assets/app.css"}]
     [:link {:rel "stylesheet" :type "text/css" :href "/assets/app2.css"}]
-    [:script {:type "text/javascript" :src "https://cdn.jsdelivr.net/npm/vega@5.9.0"}]
-    [:script {:type "text/javascript" :src "https://cdn.jsdelivr.net/npm/vega-lite@4.0.2"}]
-    vega-embed-js]
+    [:script {:type "text/javascript" :src "/assets/js/vega@5.9.0"}]
+    [:script {:type "text/javascript" :src "/assets/js/vega-lite@4.0.2"}]
+    [:script {:src "/assets/js/vega-embed@6.2.1"}]]
    [:body
     [:div#main-container
      [:ul#header-container
