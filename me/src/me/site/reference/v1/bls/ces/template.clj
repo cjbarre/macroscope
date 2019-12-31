@@ -17,7 +17,6 @@
                   :axis {:title nil
                          :titleFontSize 15
                          :titlePadding 10
-                         :format "%m/%y"
                          :labelPadding 10
                          :labelFontSize 14
                          :labelFlush false}}
@@ -42,7 +41,6 @@
                   :axis {:title nil
                          :titleFontSize 15
                          :titlePadding 10
-                         :format "%m/%y"
                          :labelPadding 10
                          :labelFontSize 14
                          :labelFlush false}}
