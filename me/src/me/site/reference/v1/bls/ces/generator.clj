@@ -72,14 +72,17 @@
                    (jdbc/execute! ds [(slurp "sql/reference/v1/bls/ces/ees-industries-index.sql")]))]
     (spit "build/site/reference/v1/bls/ces/index.html"
           (render/->html
-           {:title "The Reference > Bureau of Labor Statistics > Current Employment Statistics"
+           {:title "Discover the CES series from the BLS | Mortal Economics"
+            :description "Browse the Current Establishment Statistics from the U.S. Bureau of Labor Statistics in our visual reference."
             :content (i/ees-alphabet-index index)}))
     
     (mapv #(spit (format "build/site/reference/v1/bls/ces/index/%s-index.html"
                          (glue/slug (:industry_name %)))
                  (render/->html
-                  {:title (format "The Reference > Bureau of Labor Statistics > Current Employment Statistics > %s"
+                  {:title (format "View \"%s\" data [CES] | Mortal Economics"
                                   (:industry_name %))
+                   :description (format "View data on \"%s\" from the Current Establishment Statistics from the U.S. BLS"
+                                        (:industry_name %))
                    :content (i/ees-industry-index %)}))
           (mapcat :industries index))))
 

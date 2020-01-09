@@ -19,8 +19,8 @@
 (defn generate []
   (.mkdirs (io/file "build/site/reference/v1/"))
   (spit "build/site/reference/v1/index.html"
-        (r/->html {:title "Reference"
-                   :description "Explore insightful economic data with the Mortal Economics Reference"
+        (r/->html {:title "Discover & browse important economic data | Mortal Economics"
+                   :description "Whether you need inspiration or a sanity check on a macro indicator, we have you covered with our visual reference."
                    :content (meca/replace
                              (meca/read-file "copy/site/reference/v1/index.meca")
                              page)})))

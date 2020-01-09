@@ -19,7 +19,8 @@
 
 (defn generate []
   (spit "build/site/about.html"
-        (r/->html {:title "About Mortal Economics"
+        (r/->html {:title "Who we are | Mortal Economics"
+                   :description "Need custom economic software services or consultation?"
                    :content (meca/replace
                              (meca/read-file "copy/site/about.meca")
                              page)})))
