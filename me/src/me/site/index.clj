@@ -20,7 +20,8 @@
 
 (defn generate []
   (spit "build/site/index.html"
-        (r/->html {:title "Mortal Economics"
+        (r/->html {:title "Learn about the economy | Mortal Economics"
+                   :description "Mortal Economics builds tools for getting the most out of important economic data. Are you an economic, finance, or other firm in need of custom economic data processing or other software? We can help you."
                    :content (meca/replace
                              (meca/read-file "copy/site/index.meca")
                              page)})))
