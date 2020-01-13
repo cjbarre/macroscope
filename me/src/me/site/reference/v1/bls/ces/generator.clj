@@ -6,7 +6,8 @@
             [me.site.render :as render]
             [me.site.reference.v1.bls.ces.template :as p]
             [me.site.reference.v1.bls.ces.index :as i]
-            [me.site.reference.v1.bls.glue :as glue]))
+            [me.site.reference.v1.bls.glue :as glue]
+            [clojure.string :as string]))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;
@@ -88,9 +89,16 @@
                    :content (i/ees-industry-index %)}))
           (mapcat :industries index))))
 
-;;;;;;;;;;
-;;; Oz ;;;
-;;;;;;;;;;
+(defn generate-sitemap []
+  (spit "build/site/reference/v1/bls/ces/sitemap.txt"
+        (string/join "\n"
+                     (conj (mapcat #(conj
+                                     (mapv (fn [x] (format "http://mortaleconomics.com/reference/v1/bls/ces/%s.html" (glue/slug x)))
+                                           (-> (:items %) str json/read-str))
+                                     (format "http://mortaleconomics.com/reference/v1/bls/ces/index/%s.html"
+                                             (glue/slug (:industry %))))
+                                   (jdbc/execute! ds [(slurp "sql/reference/v1/bls/ces/sitemap.sql")]))
+                           "http://mortaleconomics.com/reference/v1/bls/ces/index.html"))))
 
 ;;;;;;;;;;;;
 ;;; Main ;;;
