@@ -47,9 +47,12 @@
               (r/fold conj
                       (r/map (fn [x] (spit (format "build/site/reference/v1/census/naics-2017/%s.html"
                                                    (:naics_code x))
-                                           (render/->html {:title (format "The Reference > NAICS 2017 > (%s) %s "
+                                           (render/->html {:title (format "(%s) %s [NAICS 2017]"
                                                                           (:naics_code x)
                                                                           (:title x))
+                                                           :description (format "Read the NAICS 2017 defintion for code \"%s\": \"%s \""
+                                                                                (:naics_code x)
+                                                                                (:title x))
                                                            :content (page x)})))
                              (jdbc/execute! s/ds [(slurp "sql/reference/v1/census/naics-2017/pages.sql")]))))))
 
@@ -65,13 +68,24 @@
                       (jdbc/execute! s/ds [(slurp "sql/reference/v1/census/naics-2017/a-z-index.sql")]))]
     (spit "build/site/reference/v1/census/naics-2017/index.html"
           (render/->html
-           {:title "The Reference > Census Bureau > NAICS 2017"
-            :description "Find NAICS 2017 definitions from the Census Bureau"
+           {:title "Discover NAICS 2017 definitions | Mortal Economics"
+            :description "Learn about official industry classifications with NAICS 2017 defintions from the U.S. Census Bureau."
             :content (azi/a-z-index {:title "NAICS 2017" 
-                                     :source "Census Bureau"
+                                     :source "U.S. Census Bureau"
                                      :content a-z-data})}))))
+
+(defn generate-sitemap []
+  (spit "build/site/reference/v1/census/naics-2017/sitemap.txt"
+        (string/join "\n"
+                     (conj (map #(format "http://mortaleconomics.com/reference/v1/census/naics-2017/%s.html"
+                                         (:naics_code %))
+                                (jdbc/execute! s/ds [(slurp "sql/reference/v1/census/naics-2017/pages.sql")]))
+                           "http://mortaleconomics.com/reference/v1/census/naics-2017/index.html"))))
+
+
 
 (defn generate []
   (.mkdirs (io/file "build/site/reference/v1/census/naics-2017/"))
   (generate-pages)
-  (generate-indices))
+  (generate-indices)
+  (generate-sitemap))
