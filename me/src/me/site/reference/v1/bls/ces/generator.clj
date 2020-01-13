@@ -107,5 +107,6 @@
 (defn generate []
   (generate-static-ees-data)
   (generate-static-ees-pages)
-  (generate-ees-indicies))
+  (generate-ees-indicies)
+  (generate-sitemap))
 
