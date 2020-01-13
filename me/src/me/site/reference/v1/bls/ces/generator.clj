@@ -6,8 +6,8 @@
             [me.site.render :as render]
             [me.site.reference.v1.bls.ces.template :as p]
             [me.site.reference.v1.bls.ces.index :as i]
-            [me.site.reference.v1.bls.glue :as glue]
-            [clojure.java.shell :as sh]))
+            [me.site.reference.v1.bls.glue :as glue]))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Data Generation ;;;
@@ -39,7 +39,6 @@
 
 
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Page Generation ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;
@@ -51,9 +50,12 @@
                                                            "-"
                                                            (:ees_series/series_title x))))
                                    (render/->html
-                                    {:title (format "The Reference > Bureau of Labor Statistics > Current Employment Statistics > %s > %s"
+                                    {:title (format "%s > %s [CES]"
                                                     (:ees_industry/industry_name x)
                                                     (:ees_series/series_title x))
+                                     :description (format "View \"%s\" in \"%s\" from the U.S. Bureau of Labor Statistics, Current Establishment Statistics series"
+                                                          (:ees_series/series_title x)
+                                                          (:ees_industry/industry_name x))
                                      :content (p/page (:ees_series/series_id x)
                                                       (:ees_series/series_title x)
                                                       (:ees_industry/naics_code x))})))
