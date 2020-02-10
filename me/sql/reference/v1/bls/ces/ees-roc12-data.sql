@@ -5,7 +5,7 @@ with x as (
         value::float                  as current,
         lag(value::float, 12) over (order by series_id, year, period) as previous
     from warehouse.ees_data
-    where year::int between 2018 and 2019
+    where year::int between 2018 and 2020
     and period <> 'M13'
 )
 select series_id,
@@ -13,5 +13,6 @@ select series_id,
                                 'period', year || '-' || regexp_replace(period, 'M', '') || '-01T23:00:00Z')
                 order by x.year, x.period) as data
 from x
-where year = '2019'
+where year >= '2019'
 group by x.series_id;
+
